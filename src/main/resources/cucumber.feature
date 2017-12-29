@@ -4,10 +4,9 @@ Feature: ProtonMailCucumberRunner
 Scenario Outline: Creating and Sending an Email Message
 Given user navigates to ProtonMail home page
 When  click Login button
-And   creates new draft "<sender>" "<subject>" "<body>"
-Then  searches sent "<sender>" "<subject>"
-
+And  user creates new draft "<sender>" and "<subject>" and "<body>"
+Then  user searches sent "<sender>" and "<subject>"
 
 Examples:
-|sender      |subject   |body          |
+|sender|subject|body|
 |tani455@mail.ru|Tatyana|Some text|

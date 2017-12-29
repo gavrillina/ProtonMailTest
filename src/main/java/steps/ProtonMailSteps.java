@@ -9,20 +9,21 @@ import cucumber.api.java.en.When;
 import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import page.HomePage;
 import page.InboxPage;
 import page.LoginPage;
-import utility.WebDriverManager;
 import utility.WebDriverSingleton;
+
+import java.util.concurrent.TimeUnit;
 
 public class ProtonMailSteps {
 
     private static WebDriver driver = new WebDriverSingleton().getDriver();
 
     private static final String START_URL = "https://protonmail.com/";
+
+    private InboxPage inboxPage;
 
 
     @Given("^user navigates to ProtonMail home page$")
@@ -31,28 +32,24 @@ public class ProtonMailSteps {
     }
 
     @When("^click Login button$")
-    public void click_Login_button_and() {
+    public void click_Login_button_and() throws CannotLoginException {
         // Login via user-defined method
         new HomePage(driver).clickLoginButton();
-
-    }
-
-    @And("^creates new draft "<sender>" "<subject>" "<body>"$")
-    public void enter_user_credentials() throws CannotLoginException {
         new LoginPage(driver).doLogIn(User.PROTON_LOGIN);
 
     }
-
-  @And("^creates new draft \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
-    public void create_new_mwssage_and_save(String sender, String subject, String body){
-       Mail mail = new Mail(sender,subject,body);
-        new InboxPage(driver).createNewMessage(mail);
-
+    @And("^user creates new draft \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void user_creates_new_draft_and(String sender, String subject, String body) throws DraftNotFoundException {
+        Mail mail = new Mail(sender, subject, body);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        inboxPage.createNewMessage(mail);
     }
 
-    @Then("^searches sent \"([^\"]*)\" \"([^\"]*)\"$")
-    public void send_message_from_draft(Mail mail) throws DraftNotFoundException {
-        new InboxPage(driver).veryfySendMessage(mail);
-        }
+    @Then("^user searches sent \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void user_sends_draft(String sender, String subject, String body) throws DraftNotFoundException {
+        Mail mail = new Mail(sender, subject, body);
+        inboxPage.veryfySendMessage(mail);
 
     }
+}
+

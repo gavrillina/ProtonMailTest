@@ -2,8 +2,7 @@ package buissnes_object;
 
     public enum User {
 
-        PROTON_LOGIN("automationTest@protonmail.com", "test123456"),
-        ANOTHER_PROTON_LOGIN("qwerty", "qwerty");
+        PROTON_LOGIN("automationTest@protonmail.com", "test123456");
 
         private final String userName;
         private final String userPassword;

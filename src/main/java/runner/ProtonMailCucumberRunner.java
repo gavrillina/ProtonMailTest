@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ProtonMailCucumberRunner extends AbstractTestNGCucumberTests {
 
-    private WebDriver driver ;
+    private WebDriver driver;
 
     @BeforeTest(description = "Start browser, add implicit wait and maximize window")
     public void startBrowser() {
@@ -26,7 +26,7 @@ public class ProtonMailCucumberRunner extends AbstractTestNGCucumberTests {
 
     @AfterTest(description = "Stop Browser")
     public void stopBrowser() {
-        driver.quit();
+
     }
 
 }

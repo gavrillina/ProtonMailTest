@@ -14,6 +14,9 @@ public class AbstractPage {
 
     protected WebDriver driver;
 
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     public AbstractPage(WebDriver driver) {
 

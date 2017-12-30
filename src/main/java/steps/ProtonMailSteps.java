@@ -10,6 +10,7 @@ import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import page.HomePage;
 import page.InboxPage;
 import page.LoginPage;
@@ -19,11 +20,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ProtonMailSteps {
 
-    private static WebDriver driver = new WebDriverSingleton().getDriver();
-
+    private WebDriver driver = new WebDriverSingleton().getDriver();
     private static final String START_URL = "https://protonmail.com/";
 
-    private InboxPage inboxPage;
+
 
 
     @Given("^user navigates to ProtonMail home page$")
@@ -38,17 +38,21 @@ public class ProtonMailSteps {
         new LoginPage(driver).doLogIn(User.PROTON_LOGIN);
 
     }
+
     @And("^user creates new draft \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void user_creates_new_draft_and(String sender, String subject, String body) throws DraftNotFoundException {
+    public void user_creates_new_draft(String sender, String subject, String body) throws DraftNotFoundException {
+
         Mail mail = new Mail(sender, subject, body);
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
-        inboxPage.createNewMessage(mail);
+        new InboxPage(driver).createNewMessage(mail);
     }
+
 
     @Then("^user searches sent \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
     public void user_sends_draft(String sender, String subject, String body) throws DraftNotFoundException {
         Mail mail = new Mail(sender, subject, body);
-        inboxPage.veryfySendMessage(mail);
+        new InboxPage(driver).veryfySendMessage(mail);
+        driver.quit();
 
     }
 }

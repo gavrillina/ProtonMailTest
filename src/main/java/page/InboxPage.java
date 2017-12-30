@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public class InboxPage extends AbstractPage {
-    WebDriver driver;
+
 
     public InboxPage(WebDriver driver) {
         super(driver);
@@ -60,7 +60,6 @@ public class InboxPage extends AbstractPage {
 
     public void createNewMessage(Mail mail) {
 
-
         newMessageButton.click();
         waitForElementToBeClickable(senderMail);
         senderMail.sendKeys(mail.getSenderName());
@@ -70,7 +69,7 @@ public class InboxPage extends AbstractPage {
 
         textContain.click();
 
-        Actions make = new Actions(driver);
+        Actions make = new Actions(getDriver());
         Action kbEvents = make.sendKeys(mail.getContain()).build();
         kbEvents.perform();
 
@@ -82,6 +81,10 @@ public class InboxPage extends AbstractPage {
 
 
     }
+
+
+
+
 
     public void veryfySendMessage(Mail mail) throws DraftNotFoundException {
 
@@ -98,11 +101,11 @@ public class InboxPage extends AbstractPage {
                 webElement.click();
 
                 WebElement iFrame = frame;
-                driver.switchTo().frame(iFrame);
+                getDriver().switchTo().frame(iFrame);
 
 
                 if (textContain.getText().equals(mail.getContain())) {
-                    driver.switchTo().defaultContent();
+                    getDriver().switchTo().defaultContent();
 
 
                     sendButton.click();

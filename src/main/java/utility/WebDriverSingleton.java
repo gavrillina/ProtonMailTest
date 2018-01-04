@@ -12,10 +12,12 @@ import java.util.concurrent.TimeUnit;
 public class WebDriverSingleton  {
 
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
+    private WebDriverSingleton() {
+    }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
 
         if (driver == null) {
 
@@ -28,7 +30,7 @@ public class WebDriverSingleton  {
         return driver;
     }
 
-    public WebDriver getRemotedriver(String urlHub){
+    public static WebDriver getRemotedriver(String urlHub){
 
         if (driver != null) {
             driver = null;

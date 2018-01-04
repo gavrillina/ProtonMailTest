@@ -1,7 +1,7 @@
-package runner;
+package tests;
 
 
-import buissnes_object.UserJSon;
+import buissnes_object.jsons_objects.UserJSon;
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;

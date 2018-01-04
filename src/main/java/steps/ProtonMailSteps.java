@@ -8,9 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import page.HomePage;
 import page.InboxPage;
 import page.LoginPage;
@@ -20,10 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ProtonMailSteps {
 
-    private WebDriver driver = new WebDriverSingleton().getDriver();
+    private static WebDriver driver = WebDriverSingleton.getDriver();
     private static final String START_URL = "https://protonmail.com/";
-
-
 
 
     @Given("^user navigates to ProtonMail home page$")
@@ -52,7 +48,6 @@ public class ProtonMailSteps {
     public void user_sends_draft(String sender, String subject, String body) throws DraftNotFoundException {
         Mail mail = new Mail(sender, subject, body);
         new InboxPage(driver).veryfySendMessage(mail);
-        driver.quit();
 
     }
 }

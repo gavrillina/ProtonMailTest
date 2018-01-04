@@ -1,4 +1,4 @@
-package buissnes_object;
+package buissnes_object.jsons_objects;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -2,6 +2,7 @@ package tests;
 
 import buissnes_object.Mail;
 import buissnes_object.User;
+import com.sun.xml.internal.ws.addressing.W3CAddressingConstants;
 import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 import page.HomePage;
 import page.InboxPage;
 import utility.FactoryMethodChrome;
+import utility.WebDriverSingleton;
 
 
 public class ProtonMailTest {
@@ -25,9 +27,9 @@ public class ProtonMailTest {
 
         //driver=new WebDriverSingleton().getRemotedriver("10.12.12.191");
 
-
+        WebDriver driver = WebDriverSingleton.getDriver();
         // by FactoryMethod
-        driver = new FactoryMethodChrome().FactoryMethod();
+        //driver = new FactoryMethodChrome().FactoryMethod();
         driver.get("https://protonmail.com/");
         driver.manage().window().maximize();
     }

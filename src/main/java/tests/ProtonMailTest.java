@@ -23,7 +23,6 @@ public class ProtonMailTest {
     @BeforeTest
     private void openBrowser() {
 
-        //driver=new WebDriverSingleton().getRemotedriver("10.12.12.191");
         WebDriver driver = WebDriverSingleton.getDriver();
         //driver = new FactoryMethodChrome().FactoryMethod();
         driver.get("https://protonmail.com/");

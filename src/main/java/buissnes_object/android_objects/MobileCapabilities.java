@@ -1,4 +1,4 @@
-package buissnes_object;
+package buissnes_object.android_objects;
 
 public class MobileCapabilities {
     private String platformName;

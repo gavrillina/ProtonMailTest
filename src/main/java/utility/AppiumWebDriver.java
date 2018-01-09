@@ -1,6 +1,6 @@
 package utility;
 
-import buissnes_object.MobileCapabilities;
+import buissnes_object.android_objects.MobileCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;

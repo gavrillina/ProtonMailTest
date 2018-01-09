@@ -1,6 +1,6 @@
 package tests;
 
-import buissnes_object.MobileCapabilities;
+import buissnes_object.android_objects.MobileCapabilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

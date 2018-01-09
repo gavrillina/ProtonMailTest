@@ -4,7 +4,10 @@ import buissnes_object.Mail;
 import buissnes_object.User;
 import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -13,9 +16,9 @@ import org.testng.annotations.Test;
 import page.HomePage;
 import page.InboxPage;
 import utility.RollingLogger;
-import utility.ScreenShot;
 import utility.WebDriverSingleton;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -24,7 +27,6 @@ public class ProtonMailTest {
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
     Logger logger = Logger.getLogger(RollingLogger.class);
-    ScreenShot screenShot = new ScreenShot();
 
 
     @BeforeTest
@@ -34,7 +36,10 @@ public class ProtonMailTest {
         driver = WebDriverSingleton.getDriver();
         driver.get("https://protonmail.com/");
         driver.manage().window().maximize();
-        screenShot.makeSceenShot();
+
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\open_browser.png"));
+
     }
 
 
@@ -48,7 +53,8 @@ public class ProtonMailTest {
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
         }
-        screenShot.makeSceenShot();
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\log_in.png"));
 
     }
 
@@ -57,7 +63,8 @@ public class ProtonMailTest {
 
         logger.info("Create new message");
         inboxPageFactory.createNewMessage(mail);
-        screenShot.makeSceenShot();
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\open_browser.png"));
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
@@ -68,7 +75,8 @@ public class ProtonMailTest {
         } catch (DraftNotFoundException e) {
             logger.error("Draft not found");
         }
-        screenShot.makeSceenShot();
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\send_message.png"));
     }
 
     @DataProvider

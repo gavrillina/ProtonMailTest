@@ -13,7 +13,10 @@ import org.testng.annotations.Test;
 import page.HomePage;
 import page.InboxPage;
 import utility.RollingLogger;
+import utility.ScreenShot;
 import utility.WebDriverSingleton;
+
+import java.io.IOException;
 
 
 public class ProtonMailTest {
@@ -21,20 +24,22 @@ public class ProtonMailTest {
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
     Logger logger = Logger.getLogger(RollingLogger.class);
+    ScreenShot screenShot = new ScreenShot();
 
 
     @BeforeTest
-    private void openBrowser() {
+    private void openBrowser() throws IOException {
 
         logger.info("Open browser");
         driver = WebDriverSingleton.getDriver();
         driver.get("https://protonmail.com/");
         driver.manage().window().maximize();
+        screenShot.makeSceenShot();
     }
 
 
     @Test(dataProvider = "testDataForLogIn")
-    private void logInToBox(User user) throws CannotLoginException {
+    private void logInToBox(User user) throws CannotLoginException, IOException {
 
         homePageFactory = new HomePage(driver);
         inboxPageFactory = new InboxPage(driver);
@@ -43,22 +48,27 @@ public class ProtonMailTest {
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
         }
+        screenShot.makeSceenShot();
 
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
-    private void createNewMail(Mail mail) {
+    private void createNewMail(Mail mail) throws IOException {
+
         logger.info("Create new message");
         inboxPageFactory.createNewMessage(mail);
+        screenShot.makeSceenShot();
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
-    private void checkingDraftPresence(Mail mail) throws DraftNotFoundException {
+    private void checkingDraftPresence(Mail mail) throws DraftNotFoundException, IOException {
+
         try {
             inboxPageFactory.veryfySendMessage(mail);
         } catch (DraftNotFoundException e) {
             logger.error("Draft not found");
         }
+        screenShot.makeSceenShot();
     }
 
     @DataProvider

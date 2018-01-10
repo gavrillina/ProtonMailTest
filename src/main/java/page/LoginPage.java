@@ -35,6 +35,7 @@ public class LoginPage extends AbstractPage {
                 ("arguments[0].style.border='5px solid green'",
                         driver.findElement(By.xpath("//*[@id='login_btn']")));
         enterButton.click();
+
         waitForVisibilityOfAllElementsLocatedBy(welcomeMessage);
         if (welcomeMessage.isDisplayed()) {
             return new InboxPage(getDriver());

@@ -29,6 +29,7 @@ public class ProtonMailTest {
     Logger logger = Logger.getLogger(RollingLogger.class);
 
 
+
     @BeforeTest
     private void openBrowser() throws IOException {
 
@@ -38,7 +39,7 @@ public class ProtonMailTest {
         driver.manage().window().maximize();
 
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\open_browser.png"));
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\open_browser.png"));
 
     }
 
@@ -52,19 +53,21 @@ public class ProtonMailTest {
             homePageFactory.clickLoginButton().doLogIn(user);
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\error_log_in.png"));
         }
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\log_in.png"));
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\log_in.png"));
 
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
     private void createNewMail(Mail mail) throws IOException {
 
-        logger.info("Create new message");
+        logger.debug("Create new message");
         inboxPageFactory.createNewMessage(mail);
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\create_message.png"));
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\create_message.png"));
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
@@ -74,9 +77,11 @@ public class ProtonMailTest {
             inboxPageFactory.veryfySendMessage(mail);
         } catch (DraftNotFoundException e) {
             logger.error("Draft not found");
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\error_send.png"));
         }
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\send_message.png"));
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\send_message.png"));
     }
 
     @DataProvider

@@ -64,7 +64,7 @@ public class ProtonMailTest {
         logger.info("Create new message");
         inboxPageFactory.createNewMessage(mail);
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\open_browser.png"));
+        FileUtils.copyFile(scrFile, new File("src\\main\\java\\screenshots\\create_message.png"));
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})

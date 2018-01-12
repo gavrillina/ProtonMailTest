@@ -2,13 +2,12 @@ package page;
 
 import buissnes_object.Mail;
 import exeptions.DraftNotFoundException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import utility.Highlighter;
 
 import java.util.List;
 
@@ -44,34 +43,33 @@ public class InboxPage extends AbstractPage {
     @FindBy(xpath = "//*[@data-original-title = 'Закрыть']")
     private WebElement closeButton;
 
-    @FindBy(xpath = "//*[@aria-label='Сохранить']")
+    @FindBy(xpath = "//*[@id='uid1']/footer/div/button[2]")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//span[text() = 'Черновики']")
+    @FindBy(xpath = "//*[@id='pm_sidebar']/ul[1]/li[2]/a/span")
     private WebElement draft;
 
     @FindBy(xpath = "//*[@ng-repeat = 'conversation in conversations track by conversation.ID']")
     private List<WebElement> draftList;
 
-    @FindBy(xpath = "//*[text()='Отправить']")
+    @FindBy(xpath = "//*[@id='uid1']/footer/div/button[3]")
     private WebElement sendButton;
 
     @FindBy(xpath = "//span[@ng-bind-html = '$message']")
     private WebElement messagePopUp;
 
+    private Highlighter highlighter;
+
 
     public void createNewMessage(Mail mail) {
 
-        ((JavascriptExecutor) driver).executeScript
-                ("arguments[0].style.border='5px solid green'",
-                        driver.findElement(By.xpath("//*[@class='compose pm_button sidebar-btn-compose']")));
+        highlighter.highlightElement(getDriver(), newMessageButton);
+
         newMessageButton.click();
         waitForElementToBeClickable(senderMail);
         senderMail.sendKeys(mail.getSenderName());
         mailTopic.sendKeys(mail.getTopic());
-
         driver.switchTo().frame(frame);
-
         textContain.click();
 
         Actions make = new Actions(getDriver());
@@ -79,9 +77,8 @@ public class InboxPage extends AbstractPage {
         kbEvents.perform();
 
         driver.switchTo().defaultContent();
-        ((JavascriptExecutor) driver).executeScript
-                ("arguments[0].style.border='5px solid green'",
-                        driver.findElement(By.xpath("//*[@aria-label='Сохранить']")));
+
+        highlighter.highlightElement(driver, saveButton);
         saveButton.click();
 
         waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
@@ -90,15 +87,10 @@ public class InboxPage extends AbstractPage {
     }
 
 
-
-
-
     public void veryfySendMessage(Mail mail) throws DraftNotFoundException {
 
         waitForElementToBeClickable(draft);
-        ((JavascriptExecutor) driver).executeScript
-                ("arguments[0].style.border='5px solid green'",
-                        driver.findElement(By.xpath("//span[text() = 'Черновики']")));
+        highlighter.highlightElement(driver, draft);
         draft.click();
         waitForListElements(draftList);
 
@@ -117,9 +109,7 @@ public class InboxPage extends AbstractPage {
                 if (textContain.getText().equals(mail.getContain())) {
                     getDriver().switchTo().defaultContent();
 
-                    ((JavascriptExecutor) driver).executeScript
-                            ("arguments[0].style.border='5px solid green'",
-                                    driver.findElement(By.xpath("//*[text()='Отправить']")));
+                    highlighter.highlightElement(getDriver(), sendButton);
                     sendButton.click();
                     waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
 

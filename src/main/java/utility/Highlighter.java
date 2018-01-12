@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class Highlighter {
 
-    public void highlightElement(WebDriver driver, WebElement element) {
+    public static void highlightElement(WebDriver driver, WebElement element) {
 
         String bg = element.getCssValue("backgroundColor");
         JavascriptExecutor js = ((JavascriptExecutor) driver);

@@ -1,4 +1,4 @@
-package buissnes_object;
+package tests;
 
 import buissnes_object.android_objects.MobileCapabilities;
 import org.openqa.selenium.By;

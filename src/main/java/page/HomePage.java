@@ -16,14 +16,11 @@ public class HomePage extends AbstractPage {
     @FindBy(xpath = "//*[@id='bs-example-navbar-collapse-1']/ul/li[7]/a")
     private WebElement loginButton;
 
-    private Highlighter highlighter;
-
-
     public LoginPage clickLoginButton() {
 
 
         waitForElementToBeClickable(loginButton);
-        highlighter.highlightElement(getDriver(),loginButton);
+        Highlighter.highlightElement(getDriver(),loginButton);
         new WebElementDecorator(loginButton).click();
         return new LoginPage(getDriver());
 

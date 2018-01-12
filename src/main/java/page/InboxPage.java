@@ -58,12 +58,11 @@ public class InboxPage extends AbstractPage {
     @FindBy(xpath = "//span[@ng-bind-html = '$message']")
     private WebElement messagePopUp;
 
-    private Highlighter highlighter;
 
 
     public void createNewMessage(Mail mail) {
 
-        highlighter.highlightElement(getDriver(), newMessageButton);
+        Highlighter.highlightElement(getDriver(), newMessageButton);
 
         newMessageButton.click();
         waitForElementToBeClickable(senderMail);
@@ -78,7 +77,7 @@ public class InboxPage extends AbstractPage {
 
         driver.switchTo().defaultContent();
 
-        highlighter.highlightElement(driver, saveButton);
+        Highlighter.highlightElement(driver, saveButton);
         saveButton.click();
 
         waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
@@ -90,7 +89,7 @@ public class InboxPage extends AbstractPage {
     public void veryfySendMessage(Mail mail) throws DraftNotFoundException {
 
         waitForElementToBeClickable(draft);
-        highlighter.highlightElement(driver, draft);
+        Highlighter.highlightElement(driver, draft);
         draft.click();
         waitForListElements(draftList);
 
@@ -109,7 +108,7 @@ public class InboxPage extends AbstractPage {
                 if (textContain.getText().equals(mail.getContain())) {
                     getDriver().switchTo().defaultContent();
 
-                    highlighter.highlightElement(getDriver(), sendButton);
+                    Highlighter.highlightElement(getDriver(), sendButton);
                     sendButton.click();
                     waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
 

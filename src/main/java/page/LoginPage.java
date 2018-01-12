@@ -2,11 +2,10 @@ package page;
 
 import buissnes_object.User;
 import exeptions.CannotLoginException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utility.Highlighter;
 
 public class LoginPage extends AbstractPage {
 
@@ -31,9 +30,7 @@ public class LoginPage extends AbstractPage {
 
         loginField.sendKeys(user.getUSERNAME());
         passwordField.sendKeys(user.getUSERPASSWORD());
-        ((JavascriptExecutor) driver).executeScript
-                ("arguments[0].style.border='5px solid green'",
-                        driver.findElement(By.xpath("//*[@id='login_btn']")));
+        Highlighter.highlightElement(driver,enterButton);
         enterButton.click();
 
         waitForVisibilityOfAllElementsLocatedBy(welcomeMessage);

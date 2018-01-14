@@ -22,7 +22,8 @@ public class ProtonMailTest {
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
     Logger logger = Logger.getLogger(RollingLogger.class);
-  
+    ScreenShot screenShot = new ScreenShot();
+
     @BeforeTest
     private void openBrowser() throws Exception {
 
@@ -30,7 +31,7 @@ public class ProtonMailTest {
         driver = WebDriverSingleton.getDriver();
         driver.get("https://protonmail.com/");
         driver.manage().window().maximize();
-        ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\open_browser.png");
+
     }
 
 
@@ -42,10 +43,10 @@ public class ProtonMailTest {
         try {
             homePageFactory.clickLoginButton().doLogIn(user);
         } catch (CannotLoginException e) {
+           screenShot.takeScreenShot(driver,"Log In to inbox failed");
             logger.error("Incorrectly data autorization");
-            ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\error_log_in.png");
         }
-        ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\log_in.png");
+
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
@@ -53,7 +54,7 @@ public class ProtonMailTest {
 
         logger.debug("Create new message");
         inboxPageFactory.createNewMessage(mail);
-        ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\create_message.png");
+
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
@@ -63,9 +64,9 @@ public class ProtonMailTest {
             inboxPageFactory.veryfySendMessage(mail);
         } catch (DraftNotFoundException e) {
             logger.error("Draft not found");
-            ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\error_send.png");
-        }
-        ScreenShot.takeSnapShot(driver, "src\\main\\java\\screenshots\\ProtonMailTestScreenshots\\send_message.png");
+            screenShot.takeScreenShot(driver,"verify send message not found");
+                   }
+
     }
 
     @DataProvider

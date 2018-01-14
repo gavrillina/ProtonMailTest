@@ -31,9 +31,9 @@ public class ScreenShot implements ITestListener{
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-//        logger.error("'{}' test has failed", iTestResult.getName());
-//        String methodName = iTestResult.getName().toString().trim();
-//        takeScreenShot(driver, methodName);
+       logger.error("'{}' test has failed", iTestResult.getName());
+        String methodName = iTestResult.getName().toString().trim();
+        takeScreenShot(driver, methodName);
 
     }
 

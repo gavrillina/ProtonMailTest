@@ -49,7 +49,7 @@ public class ProtonMailTest {
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
-    private void createNewMail(Mail mail) throws Exception {
+    private void createNewMail(Mail mail)  {
 
         logger.debug("Create new message");
         inboxPageFactory.createNewMessage(mail);

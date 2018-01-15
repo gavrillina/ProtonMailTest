@@ -14,7 +14,7 @@ import org.testng.annotations.Listeners;
 import java.io.File;
 import java.io.IOException;
 
-public class ScreenShot implements ITestListener{
+public class ScreenShot implements ITestListener {
 
     WebDriver driver = WebDriverSingleton.getDriver();
     static Logger logger = LogManager.getLogger(Listeners.class);
@@ -31,7 +31,7 @@ public class ScreenShot implements ITestListener{
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-       logger.error("'{}' test has failed", iTestResult.getName());
+        logger.error("'{}' test has failed", iTestResult.getName());
         String methodName = iTestResult.getName().toString().trim();
         takeScreenShot(driver, methodName);
 
@@ -57,7 +57,7 @@ public class ScreenShot implements ITestListener{
 
     }
 
-    public  void takeScreenShot(WebDriver driver, String methodName) {
+    public void takeScreenShot(WebDriver driver, String methodName) {
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
         try {
             FileUtils.copyFile(takesScreenshot.getScreenshotAs(OutputType.FILE),

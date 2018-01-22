@@ -22,7 +22,7 @@ public class InboxPage extends AbstractPage {
     @FindBy(xpath = "//*[@class='compose pm_button sidebar-btn-compose']")
     private WebElement newMessageButton;
 
-    @FindBy(css = "#autocomplete")
+    @FindBy(xpath = ".//*[@class='autocompleteEmails-input']")
     private WebElement senderMail;
 
     @FindBy(xpath = "//*[@class = 'senders-name']")
@@ -58,6 +58,11 @@ public class InboxPage extends AbstractPage {
     @FindBy(xpath = "//span[@ng-bind-html = '$message']")
     private WebElement messagePopUp;
 
+    @FindBy(xpath = "//*[@id='body']/header/div/ul/li[6]/a/span[1]/i[2]")
+    private WebElement list;
+
+    @FindBy(xpath = "//*[@id='body']/header/div/ul/li[6]/span/a[3]")
+    private WebElement logOutButton;
 
 
     public void createNewMessage(Mail mail) {
@@ -120,6 +125,16 @@ public class InboxPage extends AbstractPage {
 
     }
 
+    public void logOut() {
+
+        waitForElementToBeClickable(list);
+        Highlighter.highlightElement(driver, list);
+        list.click();
+
+        waitForElementToBeClickable(logOutButton);
+        Highlighter.highlightElement(driver, logOutButton);
+        logOutButton.click();
+    }
 
 }
 

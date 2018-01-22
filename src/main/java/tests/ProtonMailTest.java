@@ -4,6 +4,7 @@ import buissnes_object.Mail;
 import buissnes_object.User;
 import exeptions.CannotLoginException;
 import exeptions.DraftNotFoundException;
+import exeptions.SentMessageNotFound;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
@@ -12,6 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.HomePage;
 import page.InboxPage;
+import page.SentPage;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
@@ -20,6 +22,7 @@ public class ProtonMailTest {
     WebDriver driver;
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
+    SentPage sentPage;
     Logger logger = Logger.getLogger(RollingLogger.class);
     private static final String START_URL = "https://protonmail.com/";
 
@@ -49,7 +52,7 @@ public class ProtonMailTest {
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
-    private void createNewMail(Mail mail)  {
+    private void createNewMail(Mail mail) {
 
         logger.debug("Create new message");
         inboxPageFactory.createNewMessage(mail);
@@ -65,6 +68,23 @@ public class ProtonMailTest {
             logger.error("Draft not found");
         }
 
+    }
+
+    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"checkingDraftPresence"})
+    private void verifySendMessage(Mail mail) throws Exception {
+
+        sentPage = new SentPage(driver);
+        try {
+            sentPage.checkSentMesage(mail);
+        } catch (SentMessageNotFound e) {
+            logger.error("Sent message not found");
+        }
+    }
+
+    @Test(dependsOnMethods = {"verifySendMessage"})
+    private void logOut() {
+
+        inboxPageFactory.logOut();
     }
 
     @DataProvider

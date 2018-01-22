@@ -19,7 +19,7 @@
     </appender>
 
     <root>
-        <priority value="DEBUG"/>
+        <priority value="INFO"/>
         <appender-ref ref="RollingAppender"/>
         <appender-ref ref="ConsoleAppender"/>
     </root>

@@ -11,9 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import page.HomePage;
-import page.InboxPage;
-import page.SentPage;
+import page.*;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
@@ -23,6 +21,8 @@ public class ProtonMailTest {
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
     SentPage sentPage;
+    InterfacePage interfacePage;
+    CommonButton commonButton;
     Logger logger = Logger.getLogger(RollingLogger.class);
     private static final String START_URL = "https://protonmail.com/";
 
@@ -36,7 +36,6 @@ public class ProtonMailTest {
         driver.manage().window().maximize();
 
     }
-
 
     @Test(dataProvider = "testDataForLogIn")
     private void logInToBox(User user) throws Exception {
@@ -85,6 +84,32 @@ public class ProtonMailTest {
     private void logOut() {
 
         inboxPageFactory.logOut();
+    }
+
+
+    @Test(dependsOnMethods = {"logInToBox"})
+    private void switchLoyout() {
+
+        interfacePage = new InterfacePage(driver);
+        interfacePage.switchViewOnVertical();
+        interfacePage.switchViewOnGprizontal();
+
+    }
+
+    @Test(dependsOnMethods = {"logInToBox"})
+    private void makeAllMessageUnread() throws InterruptedException {
+
+        commonButton = new CommonButton(driver);
+        commonButton.makeMessageUnread();
+        Thread.sleep(3000);
+    }
+
+    @Test(dependsOnMethods = {"logInToBox"})
+    private void makeFirstMessageUnread() throws InterruptedException {
+
+        commonButton = new CommonButton(driver);
+        commonButton.makeFirstMessageUnread();
+        Thread.sleep(3000);
     }
 
     @DataProvider

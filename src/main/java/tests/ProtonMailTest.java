@@ -126,6 +126,9 @@ public class ProtonMailTest {
 
     @AfterTest
     private void closeBrowser() {
+        
+        interfacePage = new InterfacePage(driver);
+        interfacePage.switchViewOnVertical();
         driver.quit();
     }
 

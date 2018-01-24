@@ -45,6 +45,8 @@ public class CommonButton extends AbstractPage {
         waitForListElements(checkMessageButton);
         List<WebElement> list = (List<WebElement>) checkMessageButton;
         for (WebElement webElement : list) {
+
+            Highlighter.highlightElement(driver,webElement);
             webElement.click();
             break;
         }
@@ -61,7 +63,7 @@ public class CommonButton extends AbstractPage {
 
         if (messageTitle.isDisplayed()) {
 
-        } else new MessageNotMakeUnread("Any message aren't here");
+        } else new MessageNotMakeUnread("Any messages aren't here");
 
     }
 
@@ -76,7 +78,7 @@ public class CommonButton extends AbstractPage {
 
         if (messageTitle.isDisplayed()) {
 
-        } else new MessageNotMakeUnread("Any message aren't here");
+        } else new MessageNotMakeUnread("Any messages aren't here");
     }
 
 }

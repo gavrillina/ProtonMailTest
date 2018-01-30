@@ -15,4 +15,40 @@
         </classes>
     </test>
 
+    <test name="createNewMail">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="checkingDraftPresence">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="verifySendMessage">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="switchLoyout">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="makeAllMessageUnread">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="logOut">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+    
 </suite>

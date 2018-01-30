@@ -15,8 +15,12 @@ import page.*;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ProtonMailTest {
+
     WebDriver driver;
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
@@ -40,6 +44,7 @@ public class ProtonMailTest {
     @Test(dataProvider = "testDataForLogIn")
     private void logInToBox(User user) throws Exception {
 
+        logger.info("Log In");
         homePageFactory = new HomePage(driver);
         inboxPageFactory = new InboxPage(driver);
         try {
@@ -47,7 +52,6 @@ public class ProtonMailTest {
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
         }
-
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
@@ -126,9 +130,7 @@ public class ProtonMailTest {
 
     @AfterTest
     private void closeBrowser() {
-        
-        interfacePage = new InterfacePage(driver);
-        interfacePage.switchViewOnVertical();
+
         driver.quit();
     }
 

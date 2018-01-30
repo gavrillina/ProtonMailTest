@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="ProtonMailTest" verbose="1" erbose="1" parallel="tests" thread-count="2">
+
+
+    <test name="Regression test">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+    <test name="logInToBox">
+        <classes>
+            <class name="tests.ProtonMailTest"/>
+        </classes>
+    </test>
+
+</suite>

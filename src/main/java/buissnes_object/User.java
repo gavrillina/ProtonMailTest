@@ -12,7 +12,6 @@ package buissnes_object;
             this.userPassword = userPassword;
         }
 
-
            public String getUSERNAME() {
         return userName;
     }

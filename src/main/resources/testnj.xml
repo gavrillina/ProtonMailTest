@@ -1,54 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="ProtonMailTest" verbose="1" erbose="1" parallel="tests" thread-count="2">
-
+<suite name="ProtonMailTest" verbose="1" parallel="methods" thread-count="2">
 
     <test name="Regression test">
+
         <classes>
-            <class name="tests.ProtonMailTest"/>
+            <class name="tests.proton_mail_test.MessageTest"/>
+            <class name="tests.proton_mail_test.InterfaceTest"/>
+            <class name="tests.proton_mail_test.SelectTest"/>
         </classes>
     </test>
 
-    <test name="logInToBox">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="createNewMail">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="checkingDraftPresence">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="verifySendMessage">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="switchLoyout">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="makeAllMessageUnread">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-
-    <test name="logOut">
-        <classes>
-            <class name="tests.ProtonMailTest"/>
-        </classes>
-    </test>
-    
 </suite>

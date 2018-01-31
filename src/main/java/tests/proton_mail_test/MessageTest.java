@@ -1,4 +1,4 @@
-package tests;
+package tests.proton_mail_test;
 
 import buissnes_object.Mail;
 import buissnes_object.User;
@@ -12,49 +12,60 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.*;
+import sun.util.calendar.BaseCalendar;
+import sun.util.calendar.CalendarDate;
+import utility.BaseTest;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 
-public class ProtonMailTest {
+public class MessageTest extends BaseTest {
 
     WebDriver driver;
     HomePage homePageFactory;
     InboxPage inboxPageFactory;
     SentPage sentPage;
-    InterfacePage interfacePage;
-    CommonButton commonButton;
     Logger logger = Logger.getLogger(RollingLogger.class);
     private static final String START_URL = "https://protonmail.com/";
 
 
     @BeforeTest
-    private void openBrowser() throws Exception {
+    private void openBrowser(User user) throws Exception {
 
         logger.info("Open browser");
         driver = WebDriverSingleton.getDriver();
         driver.get(START_URL);
         driver.manage().window().maximize();
-
-    }
-
-    @Test(dataProvider = "testDataForLogIn")
-    private void logInToBox(User user) throws Exception {
-
-        logger.info("Log In");
         homePageFactory = new HomePage(driver);
         inboxPageFactory = new InboxPage(driver);
         try {
             homePageFactory.clickLoginButton().doLogIn(user);
+            driver.get(properties.getProperty("login","password"));
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
         }
+
     }
 
-    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logInToBox"})
+//    @Test(dataProvider = "testDataForLogIn")
+//    private void logInToBox(User user) throws Exception {
+//
+//        logger.info("Log In");
+//        homePageFactory = new HomePage(driver);
+//        inboxPageFactory = new InboxPage(driver);
+//        try {
+//            homePageFactory.clickLoginButton().doLogIn(user);
+//        } catch (CannotLoginException e) {
+//            logger.error("Incorrectly data autorization");
+//        }
+//
+//    }
+
+    @Test(dataProvider = "testDataForMail")
     private void createNewMail(Mail mail) {
 
         logger.debug("Create new message");
@@ -90,31 +101,6 @@ public class ProtonMailTest {
         inboxPageFactory.logOut();
     }
 
-
-    @Test(dependsOnMethods = {"logInToBox"})
-    private void switchLoyout() {
-
-        interfacePage = new InterfacePage(driver);
-        interfacePage.switchViewOnVertical();
-        interfacePage.switchViewOnGprizontal();
-
-    }
-
-    @Test(dependsOnMethods = {"logInToBox"})
-    private void makeAllMessageUnread() throws InterruptedException {
-
-        commonButton = new CommonButton(driver);
-        commonButton.makeMessageUnread();
-        Thread.sleep(3000);
-    }
-
-    @Test(dependsOnMethods = {"logInToBox"})
-    private void makeFirstMessageUnread() throws InterruptedException {
-
-        commonButton = new CommonButton(driver);
-        commonButton.makeFirstMessageUnread();
-        Thread.sleep(3000);
-    }
 
     @DataProvider
     public Object[][] testDataForMail() {

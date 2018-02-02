@@ -67,7 +67,7 @@ public class InboxPage extends AbstractPage {
 
     public void createNewMessage(Mail mail) {
 
-        Highlighter.highlightElement(getDriver(), newMessageButton);
+        Highlighter.highlightElement(newMessageButton);
 
         newMessageButton.click();
         waitForElementToBeClickable(senderMail);
@@ -82,7 +82,7 @@ public class InboxPage extends AbstractPage {
 
         driver.switchTo().defaultContent();
 
-        Highlighter.highlightElement(driver, saveButton);
+        Highlighter.highlightElement(saveButton);
         saveButton.click();
 
         waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
@@ -94,7 +94,7 @@ public class InboxPage extends AbstractPage {
     public void veryfySendMessage(Mail mail) throws DraftNotFoundException {
 
         waitForElementToBeClickable(draft);
-        Highlighter.highlightElement(driver, draft);
+        Highlighter.highlightElement(draft);
         draft.click();
         waitForListElements(draftList);
 
@@ -113,7 +113,7 @@ public class InboxPage extends AbstractPage {
                 if (textContain.getText().equals(mail.getContain())) {
                     getDriver().switchTo().defaultContent();
 
-                    Highlighter.highlightElement(getDriver(), sendButton);
+                    Highlighter.highlightElement(sendButton);
                     sendButton.click();
                     waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
 
@@ -128,11 +128,11 @@ public class InboxPage extends AbstractPage {
     public void logOut() {
 
         waitForElementToBeClickable(list);
-        Highlighter.highlightElement(driver, list);
+        Highlighter.highlightElement(list);
         list.click();
 
         waitForElementToBeClickable(logOutButton);
-        Highlighter.highlightElement(driver, logOutButton);
+        Highlighter.highlightElement(logOutButton);
         logOutButton.click();
     }
 

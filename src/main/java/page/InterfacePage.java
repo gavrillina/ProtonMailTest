@@ -25,7 +25,7 @@ public class InterfacePage extends AbstractPage {
     public void switchViewOnVertical() {
 
         waitForElementToBeClickable(switchViewVertical);
-        Highlighter.highlightElement(driver, switchViewVertical);
+        Highlighter.highlightElement(switchViewVertical);
         switchViewVertical.click();
 
         waitForVisibilityOfAllElementsLocatedBy(popCapture);
@@ -35,7 +35,7 @@ public class InterfacePage extends AbstractPage {
     public void switchViewOnGprizontal() {
 
         waitForElementToBeClickable(switchViewGorizontal);
-        Highlighter.highlightElement(driver, switchViewGorizontal);
+        Highlighter.highlightElement(switchViewGorizontal);
         switchViewGorizontal.click();
 
         waitForVisibilityOfAllElementsLocatedBy(popCapture);

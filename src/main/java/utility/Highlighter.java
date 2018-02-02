@@ -6,8 +6,12 @@ import org.openqa.selenium.WebElement;
 
 public class Highlighter {
 
-    public static void highlightElement(WebDriver driver, WebElement element) {
 
+
+
+    public static void highlightElement(WebElement element) {
+
+        WebDriver driver = WebDriverSingleton.getDriver();
         String bg = element.getCssValue("backgroundColor");
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].style.border='5px solid green'", element);

@@ -1,67 +1,47 @@
 package tests.proton_mail_test;
 
-import buissnes_object.User;
-import exeptions.CannotLoginException;
+import exeptions.MessageListIsVoid;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 import page.*;
+import utility.BaseTest;
 import utility.RollingLogger;
-import utility.WebDriverSingleton;
+import org.testng.annotations.Test;
 
-public class SelectTest {
+public class SelectTest extends BaseTest {
 
 
     WebDriver driver;
-    HomePage homePageFactory;
-    InboxPage inboxPageFactory;
-    SentPage sentPage;
-    InterfacePage interfacePage;
     CommonButton commonButton;
     Logger logger = Logger.getLogger(RollingLogger.class);
-    private static final String START_URL = "https://protonmail.com/";
 
 
-    @Test(dataProvider = "testDataForLogIn")
-    private void logInToBox(User user) throws Exception {
+    @Test
+    private void makeAllMessageUnread() throws InterruptedException, MessageListIsVoid {
 
-        logger.info("Log In");
-        homePageFactory = new HomePage(driver);
-        inboxPageFactory = new InboxPage(driver);
-        try {
-            homePageFactory.clickLoginButton().doLogIn(user);
-        } catch (CannotLoginException e) {
-            logger.error("Incorrectly data autorization");
-        }
-
-    }
-
-
-    @Test(dependsOnMethods = {"logInToBox"})
-    private void makeAllMessageUnread() throws InterruptedException {
-
+        logger.info("Select message and make it unread");
         commonButton = new CommonButton(driver);
-        commonButton.makeMessageUnread();
+        try {
+            commonButton.makeMessageUnread();
+        } catch (MessageListIsVoid e) {
+            logger.error("There aren't any message");
+        }
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"logInToBox"})
+    @Test
     private void makeFirstMessageUnread() throws InterruptedException {
 
+        logger.info("Select all message and male them unread");
         commonButton = new CommonButton(driver);
-        commonButton.makeFirstMessageUnread();
+
+        try {
+            commonButton.makeFirstMessageUnread();
+        } catch (MessageListIsVoid e) {
+            logger.error("There aren't any message");
+        }
         Thread.sleep(3000);
     }
-
-    @DataProvider
-    public Object[][] testDataForLogIn() {
-
-        return new Object[][]{{User.PROTON_LOGIN}};
-    }
-
 
 
 }

@@ -1,6 +1,6 @@
 package page;
 
-import exeptions.MessageNotMakeUnread;
+import exeptions.MessageListIsVoid;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,7 +36,7 @@ public class CommonButton extends AbstractPage {
     public void checkAllMessage() {
 
         waitForElementToBeClickable(checkAllButtons);
-        Highlighter.highlightElement(driver, checkAllButtons);
+        Highlighter.highlightElement(checkAllButtons);
         checkAllButtons.click();
     }
 
@@ -46,39 +46,39 @@ public class CommonButton extends AbstractPage {
         List<WebElement> list = (List<WebElement>) checkMessageButton;
         for (WebElement webElement : list) {
 
-            Highlighter.highlightElement(driver,webElement);
+            Highlighter.highlightElement(webElement);
             webElement.click();
             break;
         }
     }
 
-    public void makeFirstMessageUnread() {
+    public void makeFirstMessageUnread() throws MessageListIsVoid {
 
         checkMessage();
 
         waitForElementToBeClickable(unreadButton);
-        Highlighter.highlightElement(driver, unreadButton);
+        Highlighter.highlightElement(unreadButton);
         unreadButton.click();
         Assert.assertEquals("h4", messageTitle.getTagName());
 
         if (messageTitle.isDisplayed()) {
 
-        } else new MessageNotMakeUnread("Any messages aren't here");
+        } else throw  new MessageListIsVoid("Any messages aren't here");
 
     }
 
-    public void makeMessageUnread() {
+    public void makeMessageUnread() throws MessageListIsVoid {
 
         checkAllMessage();
 
         waitForElementToBeClickable(unreadButton);
-        Highlighter.highlightElement(driver, unreadButton);
+        Highlighter.highlightElement(unreadButton);
         unreadButton.click();
         Assert.assertEquals("h4", messageTitle.getTagName());
 
         if (messageTitle.isDisplayed()) {
 
-        } else new MessageNotMakeUnread("Any messages aren't here");
+        } else throw new MessageListIsVoid("Any messages aren't here");
     }
 
 }

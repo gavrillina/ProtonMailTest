@@ -7,20 +7,13 @@ import exeptions.DraftNotFoundException;
 import exeptions.SentMessageNotFound;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
+import org.testng.annotations.*;
 import org.testng.annotations.Test;
 import page.*;
-import sun.util.calendar.BaseCalendar;
-import sun.util.calendar.CalendarDate;
 import utility.BaseTest;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
 
 
 public class MessageTest extends BaseTest {
@@ -33,8 +26,8 @@ public class MessageTest extends BaseTest {
     private static final String START_URL = "https://protonmail.com/";
 
 
-    @BeforeTest
-    private void openBrowser(User user) throws Exception {
+    @BeforeClass
+    private void openBrowser(User user) {
 
         logger.info("Open browser");
         driver = WebDriverSingleton.getDriver();
@@ -51,19 +44,6 @@ public class MessageTest extends BaseTest {
 
     }
 
-//    @Test(dataProvider = "testDataForLogIn")
-//    private void logInToBox(User user) throws Exception {
-//
-//        logger.info("Log In");
-//        homePageFactory = new HomePage(driver);
-//        inboxPageFactory = new InboxPage(driver);
-//        try {
-//            homePageFactory.clickLoginButton().doLogIn(user);
-//        } catch (CannotLoginException e) {
-//            logger.error("Incorrectly data autorization");
-//        }
-//
-//    }
 
     @Test(dataProvider = "testDataForMail")
     private void createNewMail(Mail mail) {
@@ -95,12 +75,6 @@ public class MessageTest extends BaseTest {
         }
     }
 
-    @Test(dependsOnMethods = {"verifySendMessage"})
-    private void logOut() {
-
-        inboxPageFactory.logOut();
-    }
-
 
     @DataProvider
     public Object[][] testDataForMail() {
@@ -117,6 +91,7 @@ public class MessageTest extends BaseTest {
     @AfterTest
     private void closeBrowser() {
 
+        inboxPageFactory.logOut();
         driver.quit();
     }
 

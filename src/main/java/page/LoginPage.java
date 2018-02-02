@@ -30,7 +30,7 @@ public class LoginPage extends AbstractPage {
 
         loginField.sendKeys(user.getUSERNAME());
         passwordField.sendKeys(user.getUSERPASSWORD());
-        Highlighter.highlightElement(driver,enterButton);
+        Highlighter.highlightElement(enterButton);
         enterButton.click();
 
         waitForVisibilityOfAllElementsLocatedBy(welcomeMessage);

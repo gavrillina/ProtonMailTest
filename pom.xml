@@ -33,7 +33,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/java/tests/proton_mail_test</source>
+                                <source>src/main/java/testng.xml</source>
                             </sources>
                         </configuration>
                     </execution>

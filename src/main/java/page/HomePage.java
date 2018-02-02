@@ -20,7 +20,7 @@ public class HomePage extends AbstractPage {
 
 
         waitForElementToBeClickable(loginButton);
-        Highlighter.highlightElement(getDriver(),loginButton);
+        Highlighter.highlightElement(loginButton);
         new WebElementDecorator(loginButton).click();
         return new LoginPage(getDriver());
 

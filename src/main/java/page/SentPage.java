@@ -36,7 +36,7 @@ public class SentPage extends AbstractPage {
     public void checkSentMesage(Mail mail) throws SentMessageNotFound {
 
         waitForElementToBeClickable(sent);
-        Highlighter.highlightElement(driver, sent);
+        Highlighter.highlightElement(sent);
         sent.click();
 
         waitForListElements(sentList);
@@ -46,7 +46,7 @@ public class SentPage extends AbstractPage {
         for (WebElement webElement : list) {
             if (senderName.getText().equals(mail.getSenderName()) && subjectText.getText().equals(mail.getTopic())) {
 
-                Highlighter.highlightElement(driver, webElement);
+                Highlighter.highlightElement(webElement);
                 webElement.click();
 
             } else throw new SentMessageNotFound("The draft has not been found");
@@ -54,7 +54,7 @@ public class SentPage extends AbstractPage {
             break;
         }
         waitForElementToBeClickable(logo);
-        Highlighter.highlightElement(driver, logo);
+        Highlighter.highlightElement(logo);
         logo.click();
     }
 }

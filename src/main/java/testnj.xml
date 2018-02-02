@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="ProtonMailTest" verbose="1" parallel="methods" thread-count="2">
+<suite name="ProtonMailTest" parallel="classes" thread-count="3">
 
     <test name="Regression test">
 

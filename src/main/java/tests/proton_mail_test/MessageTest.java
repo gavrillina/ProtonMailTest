@@ -14,6 +14,7 @@ import utility.BaseTest;
 import utility.RollingLogger;
 import utility.WebDriverSingleton;
 
+import javax.jws.soap.SOAPBinding;
 
 
 public class MessageTest extends BaseTest {
@@ -26,34 +27,36 @@ public class MessageTest extends BaseTest {
     private static final String START_URL = "https://protonmail.com/";
 
 
-    @BeforeClass
-    private void openBrowser(User user) {
+    @BeforeTest(groups = {"Smoke test"})
+    private void openBrowser() {
 
         logger.info("Open browser");
         driver = WebDriverSingleton.getDriver();
         driver.get(START_URL);
         driver.manage().window().maximize();
+    }
+
+    @Test(groups = {"Smoke test"}, dataProvider = "testDataForLogIn")
+    private void logIn(User user) {
         homePageFactory = new HomePage(driver);
         inboxPageFactory = new InboxPage(driver);
         try {
             homePageFactory.clickLoginButton().doLogIn(user);
-            driver.get(properties.getProperty("login","password"));
         } catch (CannotLoginException e) {
             logger.error("Incorrectly data autorization");
         }
-
     }
 
-
-    @Test(dataProvider = "testDataForMail")
+    @Test(groups = {"Smoke test"}, dataProvider = "testDataForMail", dependsOnMethods = "logIn")
     private void createNewMail(Mail mail) {
 
         logger.debug("Create new message");
+        inboxPageFactory = new InboxPage(driver);
         inboxPageFactory.createNewMessage(mail);
 
     }
 
-    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
+    @Test(groups = {"Smoke test"}, dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
     private void checkingDraftPresence(Mail mail) throws Exception {
 
         try {
@@ -64,7 +67,7 @@ public class MessageTest extends BaseTest {
 
     }
 
-    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"checkingDraftPresence"})
+    @Test(groups = {"Smoke test"}, dataProvider = "testDataForMail", dependsOnMethods = {"checkingDraftPresence"})
     private void verifySendMessage(Mail mail) throws Exception {
 
         sentPage = new SentPage(driver);
@@ -88,7 +91,7 @@ public class MessageTest extends BaseTest {
         return new Object[][]{{User.PROTON_LOGIN}};
     }
 
-    @AfterTest
+    @AfterTest(groups = {"Smoke test"})
     private void closeBrowser() {
 
         inboxPageFactory.logOut();

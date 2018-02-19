@@ -17,7 +17,7 @@ public class InterfaceTest extends BaseTest {
     @Test
     private void switchLoyout() {
 
-          
+
 
 
         logger.info("Change layout");

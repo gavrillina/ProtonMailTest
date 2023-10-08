@@ -16,10 +16,6 @@ public class InterfaceTest extends BaseTest {
 
     @Test
     private void switchLoyout() {
-
-
-
-
         logger.info("Change layout");
         interfacePage = new InterfacePage(driver);
         interfacePage.switchViewOnVertical();
